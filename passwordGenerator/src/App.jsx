@@ -6,7 +6,7 @@ import './App.css'
 
 function App() {
   const [length,setLength] = useState(8)//password ki length ko store karne ke liye state banai; initial value 8 hai
-  
+
   const [numberAllowed,setNumberAllowed] = useState(false)//checkbox ke liye state banai;
 
   const [charAllowed,setCharAllowed] = useState(false)//checkbox ke liye state banai; useState - hook hai jo state ko manage karne ke liye use hota hai; initial value false hai
@@ -17,7 +17,7 @@ function App() {
   const passwordRef = useRef(null)//ye hook ek reference create karega jo password input field ko refer karega; initial value null hai
 
 
-  const passwordGenerator = useCallback(() =>{//password generate karne ke liye function banaya;jisme useCallback hook ka use kiya gaya hai; ye function ko memoize karta hai; ye function tabhi re-create hoga jab length,numberAllowed,charAllowed change honge
+  const passwordGenerator = useCallback(() =>{//password generate karne ke liye function banaya;jisme useCallback hook ka use kiya gaya hai; ye function ko memoize karta hai; 
     let pass = ""
     let str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     if(numberAllowed) {
@@ -40,7 +40,7 @@ const copyPasswordToClipboard = useCallback(() =>{
 }, [password])//ye function tabhi re-create hoga jab password change hoga
 
 
-  useEffect(() => { //ye hook tabhi run hoga jab length,numberAllowed,charAllowed,passwordGenerator change honge; ye hook passwordGenerator function ko call karega
+  useEffect(() => { //ye hook tabhi run hoga jab length,numberAllowed,charAllowed,passwordGenerator change honge; ye hook passwordGenerator function ko call karega; ye paheli baar execute hoga jab page load hoga
     passwordGenerator()
   }, [length,numberAllowed,charAllowed,passwordGenerator])//ye hook tabhi run hoga jab length,numberAllowed,charAllowed,passwordGenerator change honge
   return (
@@ -57,7 +57,7 @@ const copyPasswordToClipboard = useCallback(() =>{
         ref={passwordRef}
         />
         <button 
-        onClick={copyPasswordToClipboard}
+        onClick={copyPasswordToClipboard}//onClick - ye function tabhi call hoga jab button click hoga; ye function password ko clipboard me copy karega
         className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2'>Copy</button>
       </div>
       <div className='flex text-sm gap-x-2'>
@@ -77,7 +77,7 @@ const copyPasswordToClipboard = useCallback(() =>{
           type="checkbox"
           checked={numberAllowed}
           id="numberInput"
-          onChange={(e) => setNumberAllowed(e.target.checked)}
+          onChange={(e) => setNumberAllowed(e.target.checked)}//ye function numberAllowed ko update karega jab user checkbox ko check/uncheck karega
           />
           <label htmlFor="numberInput" className='text-orange-500'>Include Numbers</label>
         </div>
